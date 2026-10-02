@@ -35,11 +35,11 @@ export default function LoginPage() {
 
       <form onSubmit={handleSubmit} noValidate className="mt-8 space-y-5">
         <div>
-          <label htmlFor="login-email" className="mb-1.5 block text-sm font-bold text-stone-700">
+          <label htmlFor="login-email-input" className="mb-1.5 block text-sm font-bold text-stone-700">
             Email
           </label>
           <input
-            id="login-email"
+            id="login-email-input"
             type="email"
             autoComplete="email"
             placeholder="nama@del.ac.id"
@@ -51,12 +51,12 @@ export default function LoginPage() {
         </div>
 
         <div>
-          <label htmlFor="login-password" className="mb-1.5 block text-sm font-bold text-stone-700">
+          <label htmlFor="login-password-input" className="mb-1.5 block text-sm font-bold text-stone-700">
             Kata sandi
           </label>
           <div className="relative">
             <input
-              id="login-password"
+              id="login-password-input"
               type={reveal ? "text" : "password"}
               autoComplete="current-password"
               value={password.value}
@@ -78,6 +78,7 @@ export default function LoginPage() {
         </div>
 
         <button
+          id="login-submit-button"
           type="submit"
           disabled={submitting}
           className="flex w-full items-center justify-center gap-2 rounded-2xl bg-indigo-950 py-3.5 font-bold text-amber-300 transition hover:bg-indigo-900 disabled:opacity-60"
