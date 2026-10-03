@@ -25,6 +25,16 @@ const inlineCss = () => ({
   },
 });
 
+// Meneruskan /api-proxy/* ke API Delcom saat dev & preview lokal
+// (di Netlify, ini dikerjakan oleh public/_redirects).
+const apiProxy = {
+  "/api-proxy": {
+    target: "https://open-api.delcom.org",
+    changeOrigin: true,
+    rewrite: (path) => path.replace(/^\/api-proxy/, "/api/v1"),
+  },
+};
+
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
@@ -32,8 +42,8 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react(), tailwindcss(), inlineCss()],
-    server: { port },
-    preview: { port },
+    server: { port, proxy: apiProxy },
+    preview: { port, proxy: apiProxy },
     define: {
       DELCOM_BASEURL: JSON.stringify(
         env.VITE_DELCOM_BASEURL || "https://open-api.delcom.org/api/v1"

@@ -6,7 +6,8 @@ export const putAccessToken = (token) => localStorage.setItem(TOKEN_SLOT, token)
 export const removeAccessToken = () => localStorage.removeItem(TOKEN_SLOT);
 
 export const buildUrl = (path, params = {}) => {
-  const url = new URL(`${DELCOM_BASEURL}${path}`);
+  // Argumen kedua dibutuhkan agar base URL relatif (mis. "/api-proxy") valid.
+  const url = new URL(`${DELCOM_BASEURL}${path}`, window.location.origin);
   Object.entries(params)
     .filter(([, value]) => `${value ?? ""}` !== "")
     .forEach(([key, value]) => url.searchParams.append(key, value));
