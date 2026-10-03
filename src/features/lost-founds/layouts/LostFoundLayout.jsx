@@ -21,21 +21,27 @@ export default function LostFoundLayout() {
     });
   }, [token, dispatch]);
 
+  const closeDrawer = () => setDrawerOpen(false);
+
   if (!token) return <Navigate to="/auth/login" replace />;
 
   if (!profile) {
     return (
-      <div role="status" className="grid min-h-screen place-items-center text-indigo-950">
-        <span className="flex items-center gap-3 font-semibold">
-          <IconLoader2 className="animate-spin" /> Memuat sesi…
-        </span>
+      <div className="min-h-screen lg:pl-72">
+        <SidebarComponent open={drawerOpen} onClose={closeDrawer} />
+        <main className="mx-auto max-w-6xl px-4 py-6 sm:px-8 sm:py-8">
+          <h1 className="sr-only">Pusat Lost &amp; Found</h1>
+          <p role="status" className="flex items-center justify-center gap-3 py-24 font-semibold text-indigo-950">
+            <IconLoader2 className="animate-spin" /> Memuat sesi…
+          </p>
+        </main>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen lg:pl-72">
-      <SidebarComponent open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      <SidebarComponent open={drawerOpen} onClose={closeDrawer} />
       <NavbarComponent onOpenMenu={() => setDrawerOpen(true)} />
       <main className="mx-auto max-w-6xl px-4 py-6 sm:px-8 sm:py-8">
         <Outlet />
