@@ -18,10 +18,10 @@ vi.mock("sweetalert2", () => ({ default: { fire: vi.fn() } }));
 beforeEach(() => vi.clearAllMocks());
 
 describe("dialog SweetAlert2", () => {
-  it("success / error / warning memanggil Swal dengan ikon yang tepat", () => {
-    showSuccessDialog("ok");
-    showErrorDialog("gagal");
-    showWarningDialog("awas");
+  it("success / error / warning memanggil Swal dengan ikon yang tepat", async () => {
+    await showSuccessDialog("ok");
+    await showErrorDialog("gagal");
+    await showWarningDialog("awas");
     expect(Swal.fire.mock.calls.map(([o]) => o.icon)).toEqual(["success", "error", "warning"]);
     expect(Swal.fire.mock.calls[0][0].text).toBe("ok");
   });

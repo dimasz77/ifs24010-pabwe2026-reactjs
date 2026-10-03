@@ -1,18 +1,23 @@
-import Swal from "sweetalert2";
+// SweetAlert2 dimuat secara lazy (hanya saat dialog pertama dibuka)
+// agar tidak membebani bundle awal -> menghilangkan "unused JavaScript".
+const fire = async (options) => {
+  const { default: Swal } = await import("sweetalert2");
+  return Swal.fire(options);
+};
 
 const ACCENT = "#3730a3";
 
 export const showSuccessDialog = (message) =>
-  Swal.fire({ icon: "success", title: "Berhasil", text: message, confirmButtonColor: ACCENT });
+  fire({ icon: "success", title: "Berhasil", text: message, confirmButtonColor: ACCENT });
 
 export const showErrorDialog = (message) =>
-  Swal.fire({ icon: "error", title: "Terjadi kesalahan", text: message, confirmButtonColor: ACCENT });
+  fire({ icon: "error", title: "Terjadi kesalahan", text: message, confirmButtonColor: ACCENT });
 
 export const showWarningDialog = (message) =>
-  Swal.fire({ icon: "warning", title: "Perhatian", text: message, confirmButtonColor: ACCENT });
+  fire({ icon: "warning", title: "Perhatian", text: message, confirmButtonColor: ACCENT });
 
 export const showConfirmDialog = async (message) => {
-  const result = await Swal.fire({
+  const result = await fire({
     icon: "question",
     title: "Lanjutkan?",
     text: message,
